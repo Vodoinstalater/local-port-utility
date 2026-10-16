@@ -28,6 +28,7 @@ The app has three different checks because each answers a different question:
 - Test service tries to connect to the address and port you enter.
 - Inspect port checks if Windows Firewall allows traffic on that port.
 - Scan public port checks if a service can be reached from outside your network. TCP gives a clear result. UDP can be harder to confirm and may show OPEN OR FILTERED.
+
 The public check uses ipify to find your public IP, then Check-Host to test the port. If you use CGNAT, a VPN, or a proxy, that IP may be shared. A failed check can have several causes, such as your firewall, router, ISP, or the service not running.
 ## Bore tunnel notes
 
