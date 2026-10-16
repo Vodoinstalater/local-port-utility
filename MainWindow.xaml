@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Local_Port_Utility.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Local Port Utility">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid x:Name="RootGrid">
+        <Grid.Resources>
+            <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorPrimaryBrush}" />
+            </Style>
+            <Style x:Key="FieldLabelStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{ThemeResource TextFillColorSecondaryBrush}" />
+                <Setter Property="Margin" Value="0,0,0,6" />
+            </Style>
+            <Style x:Key="CardStyle" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="CornerRadius" Value="12" />
+            </Style>
+        </Grid.Resources>
+
+        <NavigationView x:Name="MainNavigationView" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="True" IsPaneOpen="True" PaneDisplayMode="Left" OpenPaneLength="220" PaneOpening="MainNavigationView_PaneOpening" PaneClosing="MainNavigationView_PaneClosing" SelectionChanged="MainNavigationView_SelectionChanged">
+            <NavigationView.Header>
+                <StackPanel Width="700" Margin="-40,0,20,14" HorizontalAlignment="Left">
+                    <InfoBar x:Name="StatusInfoBar" IsOpen="False" IsClosable="False" />
+                </StackPanel>
+            </NavigationView.Header>
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Home" Tag="Home" IsSelected="True">
+                    <NavigationViewItem.Icon><SymbolIcon Symbol="Home" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Open ports" Tag="Open">
+                    <NavigationViewItem.Icon><SymbolIcon Symbol="Add" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Connectivity" Tag="Connectivity">
+                    <NavigationViewItem.Icon><SymbolIcon Symbol="Globe" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Bore tunnel" Tag="Bore">
+                    <NavigationViewItem.Icon><SymbolIcon Symbol="Link" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="History" Tag="History">
+                    <NavigationViewItem.Icon><SymbolIcon Symbol="Clock" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem Content="Settings" Tag="Settings">
+                    <NavigationViewItem.Icon><SymbolIcon Symbol="Setting" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="About" Tag="About">
+                    <NavigationViewItem.Icon><SymbolIcon Symbol="Help" /></NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
+            <Grid Padding="16,0,16,20">
+                <ScrollViewer x:Name="HomePage" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Border Width="700" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="28" Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock FontSize="38" FontWeight="SemiBold" Text="Local Port Utility" TextAlignment="Center" />
+                            <TextBlock Margin="0,8,0,32" FontSize="18" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Open, test, and understand your Windows Firewall ports." TextAlignment="Center" TextWrapping="Wrap" />
+                            <Grid>
+                                <Grid.RowDefinitions><RowDefinition Height="*" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                <Border MinHeight="176" Padding="18" Margin="0,0,6,6" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="10">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
+                                        <FontIcon Glyph="&#xE710;" FontSize="24" HorizontalAlignment="Center" />
+                                        <TextBlock Margin="0,8,0,0" FontWeight="SemiBold" Text="Open ports" TextAlignment="Center" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Create inbound rules for a port or range." TextAlignment="Center" TextWrapping="Wrap" />
+                                        <Button Margin="0,8,0,0" HorizontalAlignment="Center" Tag="Open" Click="HomeActionButton_Click" Content="Open ports" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Column="1" MinHeight="176" Padding="18" Margin="6,0,0,6" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="10">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
+                                        <FontIcon Glyph="&#xE774;" FontSize="24" HorizontalAlignment="Center" />
+                                        <TextBlock Margin="0,8,0,0" FontWeight="SemiBold" Text="Connectivity" TextAlignment="Center" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Test a service and inspect its firewall rule." TextAlignment="Center" TextWrapping="Wrap" />
+                                        <Button Margin="0,8,0,0" HorizontalAlignment="Center" Tag="Connectivity" Click="HomeActionButton_Click" Content="Test connectivity" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="1" MinHeight="176" Padding="18" Margin="0,6,6,0" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="10">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
+                                        <FontIcon Glyph="&#xE71B;" FontSize="24" HorizontalAlignment="Center" />
+                                        <TextBlock Margin="0,8,0,0" FontWeight="SemiBold" Text="Bore tunnel" TextAlignment="Center" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Share a local TCP service through a Bore relay." TextAlignment="Center" TextWrapping="Wrap" />
+                                        <Button Margin="0,8,0,0" HorizontalAlignment="Center" Tag="Bore" Click="HomeActionButton_Click" Content="Open Bore" />
+                                    </StackPanel>
+                                </Border>
+                                <Border Grid.Row="1" Grid.Column="1" MinHeight="176" Padding="18" Margin="6,6,0,0" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="10">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="4">
+                                        <FontIcon Glyph="&#xE81C;" FontSize="24" HorizontalAlignment="Center" />
+                                        <TextBlock Margin="0,8,0,0" FontWeight="SemiBold" Text="History" TextAlignment="Center" />
+                                        <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Review active rules and remove them cleanly." TextAlignment="Center" TextWrapping="Wrap" />
+                                        <Button Margin="0,8,0,0" HorizontalAlignment="Center" Tag="History" Click="HomeActionButton_Click" Content="View history" />
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                            <TextBlock x:Name="HomeVersionTextBlock" Margin="0,22,0,0" FontSize="12" Foreground="{ThemeResource TextFillColorTertiaryBrush}" TextAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
+                <ScrollViewer x:Name="OpenPage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Width="700" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <StackPanel Margin="8,8,8,22">
+                            <TextBlock FontSize="28" FontWeight="SemiBold" Text="Open ports" />
+                            <TextBlock Margin="0,7,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Create an inbound Windows Firewall rule for a port or range." TextWrapping="Wrap" />
+                        </StackPanel>
+                        <Border Padding="24" Style="{StaticResource CardStyle}">
+                            <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Rule details" />
+                                <TextBlock Margin="0,4,0,20" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Name the rule, add ports, and choose the allowed protocol." TextWrapping="Wrap" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1">
+                                <TextBlock Style="{StaticResource FieldLabelStyle}" Text="RULE NAME" />
+                                <TextBox x:Name="RuleNameTextBox" MaxLength="80" PlaceholderText="For example, Local development server" />
+                            </StackPanel>
+                            <Grid Grid.Row="2" Margin="0,22,0,10">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Ports and protocols" />
+                                    <TextBlock Margin="0,3,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Each row becomes an inbound allow rule." />
+                                </StackPanel>
+                                <Button Grid.Column="1" x:Name="AddPortButton" VerticalAlignment="Center" Click="AddPortButton_Click" ToolTipService.ToolTip="Add another port or range">
+                                    <StackPanel Orientation="Horizontal" Spacing="8"><FontIcon Glyph="&#xE710;" /><TextBlock Text="Add port" /></StackPanel>
+                                </Button>
+                            </Grid>
+                            <ScrollViewer Grid.Row="3" MaxHeight="320" VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="PortEntriesPanel" />
+                            </ScrollViewer>
+                            <Grid Grid.Row="4" Margin="0,22,0,0">
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" /><ColumnDefinition Width="90" /><ColumnDefinition Width="Auto" /><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <CheckBox x:Name="AutoDeleteCheckBox" VerticalAlignment="Center" Checked="AutoDeleteCheckBox_Changed" Unchecked="AutoDeleteCheckBox_Changed" Content="Auto-delete after" />
+                                <TextBox Grid.Column="1" x:Name="AutoDeleteHoursTextBox" Margin="10,0,6,0" IsEnabled="False" MaxLength="3" PlaceholderText="24" />
+                                <TextBlock Grid.Column="2" VerticalAlignment="Center" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="hours" />
+                                <Button Grid.Column="4" x:Name="OpenRuleButton" Padding="20,9" Click="OpenRuleButton_Click" Content="Open rule" />
+                            </Grid>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <ScrollViewer x:Name="ConnectivityPage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Width="700" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <StackPanel Margin="8,8,8,22">
+                            <TextBlock FontSize="28" FontWeight="SemiBold" Text="Connectivity" />
+                            <TextBlock Margin="0,7,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Check whether a service is reachable and whether Windows Firewall allows its port." TextWrapping="Wrap" />
+                        </StackPanel>
+                        <Border Padding="24" Style="{StaticResource CardStyle}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Connectivity tools" />
+                                <TextBlock Margin="0,4,0,18" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Use a listening test for a service, or check the firewall rule for a port." TextWrapping="Wrap" />
+
+                            <Border Padding="16" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="Listening test" />
+                                    <TextBlock Margin="0,3,0,14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Checks whether a service is listening and reachable at this device and port." TextWrapping="Wrap" />
+                                    <TextBlock Style="{StaticResource FieldLabelStyle}" Text="TARGET DEVICE" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <TextBox x:Name="TestTargetTextBox" PlaceholderText="Private IPv4, for example 192.168.1.20" />
+                                        <StackPanel Grid.Column="1" Margin="10,0,0,0" Orientation="Horizontal" Spacing="6">
+                                            <ComboBox Width="210" x:Name="LocalIpv4ComboBox" DisplayMemberPath="Label" SelectionChanged="LocalIpv4ComboBox_SelectionChanged" PlaceholderText="Known devices" />
+                                            <Button x:Name="RefreshNetworkButton" Click="RefreshNetworkButton_Click" ToolTipService.ToolTip="Refresh local and LAN devices"><FontIcon Glyph="&#xE72C;" /></Button>
+                                        </StackPanel>
+                                    </Grid>
+                                    <TextBlock Style="{StaticResource FieldLabelStyle}" Margin="0,18,0,6" Text="PORT" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="120" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <TextBox x:Name="TestPortTextBox" Text="3389" MaxLength="5" />
+                                        <Button Grid.Column="1" Margin="10,0,0,0" x:Name="TestConnectivityButton" Click="TestConnectivityButton_Click" Content="Test service" />
+                                    </Grid>
+                                    <TextBlock x:Name="TestResultTextBlock" Margin="0,12,0,0" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                            <Border Margin="0,12,0,0" Padding="16" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="Firewall rule inspection" />
+                                    <TextBlock Margin="0,3,0,14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Checks whether Windows Firewall has an enabled allow rule for this exact port. Administrator approval is required." TextWrapping="Wrap" />
+                                    <InfoBar x:Name="FirewallResultInfoBar" IsOpen="False" IsClosable="False" Margin="0,0,0,12" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="120" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <TextBox x:Name="FirewallPortTextBox" Text="3389" MaxLength="5" PlaceholderText="Port" />
+                                        <Button Grid.Column="1" Margin="10,0,0,0" x:Name="CheckFirewallButton" Click="CheckFirewallButton_Click" Content="Inspect port" />
+                                    </Grid>
+                                    <TextBlock x:Name="FirewallResultTextBlock" Margin="0,12,0,0" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                            <Border Margin="0,12,0,0" Padding="16" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="Public port scan" />
+                                    <TextBlock Margin="0,3,0,14" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="ipify identifies your public IPv4 address. Check-Host.net receives that address and port for separate TCP and UDP probes; both services can see your outbound public IP, and Check-Host returns a report link. With CGNAT, a VPN, or a proxy, the address may be shared or belong to a gateway. UDP may be inconclusive without a service response." TextWrapping="Wrap" />
+                                    <Grid>
+                                        <Grid.ColumnDefinitions><ColumnDefinition Width="120" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                        <TextBox x:Name="PublicPortTextBox" Text="443" MaxLength="5" PlaceholderText="Port" />
+                                        <Button x:Name="ScanPublicPortButton" Grid.Column="1" Margin="10,0,0,0" Click="ScanPublicPortButton_Click" Content="Scan public port" />
+                                    </Grid>
+                                    <TextBlock x:Name="PublicPortResultTextBlock" Margin="0,12,0,0" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <ScrollViewer x:Name="BorePage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Width="700" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <StackPanel Margin="8,8,8,22">
+                            <TextBlock FontSize="28" FontWeight="SemiBold" Text="Bore tunnel" />
+                            <TextBlock Margin="0,7,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Forward a TCP service through a Bore relay. The local service must already be listening." TextWrapping="Wrap" />
+                        </StackPanel>
+                        <Border Padding="24" Style="{StaticResource CardStyle}">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                    <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Tunnel settings" VerticalAlignment="Center" />
+                                    <Button Grid.Column="1" Padding="7" Click="BoreInfoButton_Click" ToolTipService.ToolTip="Bore download and antivirus information" AutomationProperties.Name="Bore download and antivirus information">
+                                        <FontIcon Glyph="&#xE946;" />
+                                    </Button>
+                                </Grid>
+                                <TextBlock Margin="0,4,0,18" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Bore exposes TCP only. Leave the remote port at 0 to let the relay assign one." TextWrapping="Wrap" />
+                                <Grid ColumnSpacing="12" RowSpacing="12">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /></Grid.RowDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Style="{StaticResource FieldLabelStyle}" Text="LOCAL IP / HOST" />
+                                        <TextBox x:Name="BoreLocalHostTextBox" Text="127.0.0.1" PlaceholderText="127.0.0.1" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Style="{StaticResource FieldLabelStyle}" Text="LOCAL PORT" />
+                                        <TextBox x:Name="BoreLocalPortTextBox" Text="8080" MaxLength="5" PlaceholderText="8080" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1">
+                                        <TextBlock Style="{StaticResource FieldLabelStyle}" Text="BORE SERVER" />
+                                        <TextBox x:Name="BoreServerTextBox" Text="bore.pub" PlaceholderText="bore.pub" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Grid.Column="1">
+                                        <TextBlock Style="{StaticResource FieldLabelStyle}" Text="REMOTE PORT (0 = RANDOM)" />
+                                        <TextBox x:Name="BoreRemotePortTextBox" Text="0" MaxLength="5" PlaceholderText="0" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="8">
+                                        <Button x:Name="StartBoreButton" Click="StartBoreButton_Click" Content="Start tunnel" />
+                                        <Button x:Name="StopBoreButton" IsEnabled="False" Click="StopBoreButton_Click" Content="Stop tunnel" />
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Margin="0,18,0,0">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="BoreEndpointTextBlock" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap" VerticalAlignment="Center" />
+                                    <Button x:Name="CopyBoreEndpointButton" Grid.Column="1" Margin="8,0,0,0" Padding="9,6" IsEnabled="False" Click="CopyBoreEndpointButton_Click" ToolTipService.ToolTip="Copy the public TCP endpoint">
+                                        <FontIcon Glyph="&#xE8C8;" />
+                                    </Button>
+                                </Grid>
+                                <TextBlock x:Name="BoreStatusTextBlock" Margin="0,6,0,8" Foreground="{ThemeResource TextFillColorSecondaryBrush}" TextWrapping="Wrap" />
+                                <TextBox x:Name="BoreOutputTextBox" MinHeight="180" MaxHeight="280" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" PlaceholderText="Bore output and errors will appear here." />
+                                <TextBlock Margin="0,12,0,0" FontSize="12" Foreground="{ThemeResource TextFillColorTertiaryBrush}" Text="Only expose a service you trust. Anyone with the public endpoint may connect. Bore forwards raw TCP; use an application protocol that provides its own encryption. The public bore.pub relay is operated by a third party. Closing this app stops the tunnel." TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <ScrollViewer x:Name="HistoryPage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Width="700" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <StackPanel Margin="8,8,8,22">
+                            <TextBlock FontSize="28" FontWeight="SemiBold" Text="History" />
+                            <TextBlock Margin="0,7,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Review rules opened by this utility and close them when they are no longer needed." TextWrapping="Wrap" />
+                        </StackPanel>
+                        <Border Padding="24" Style="{StaticResource CardStyle}">
+                            <Grid>
+                            <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                <StackPanel><TextBlock Style="{StaticResource SectionTitleStyle}" Text="Opened rules" /><TextBlock Margin="0,4,0,20" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Successfully opened rules stay here until their firewall entries are closed." TextWrapping="Wrap" /></StackPanel>
+                                <Button Grid.Column="1" HorizontalAlignment="Right" Click="RefreshHistoryButton_Click" ToolTipService.ToolTip="Refresh firewall status"><FontIcon Glyph="&#xE72C;" /></Button>
+                            </Grid>
+                            <TextBlock Grid.Row="1" x:Name="HistoryEmptyState" Margin="0,4,0,18" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="No firewall rules have been opened yet." />
+                            <ListView Grid.Row="2" x:Name="HistoryListBox" BorderThickness="0" SelectionMode="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0,0,0,10" Padding="14" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="8">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions>
+                                                <StackPanel Margin="0,0,8,0"><TextBlock FontWeight="SemiBold" Text="{Binding RuleName}" /><TextBlock Margin="0,4,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{Binding OpenedPortsText}" TextWrapping="Wrap" /><TextBlock Margin="0,5,0,0" Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" FontWeight="SemiBold" Text="{Binding RuleLifetimeLabel}" /><TextBlock Margin="0,5,0,0" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="{Binding Status}" /><TextBlock Margin="0,2,0,0" FontSize="11" Foreground="{ThemeResource TextFillColorTertiaryBrush}" Text="{Binding CreatedAt}" /></StackPanel>
+                                                <Button Grid.Column="1" VerticalAlignment="Top" Padding="10,6" Tag="{Binding}" Click="DeleteHistoryButton_Click" ToolTipService.ToolTip="Close the firewall rules, cancel auto-delete, and remove this history entry"><FontIcon Glyph="&#xE74D;" /></Button>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <ScrollViewer x:Name="SettingsPage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Border Width="700" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="24" Style="{StaticResource CardStyle}">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource SectionTitleStyle}" Text="Settings" />
+                            <TextBlock Margin="0,4,0,24" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Keep the utility comfortable on your system." />
+                            <TextBlock Style="{StaticResource FieldLabelStyle}" Text="THEME" />
+                            <ComboBox x:Name="ThemeComboBox" Width="240" SelectedIndex="0" SelectionChanged="ThemeComboBox_SelectionChanged">
+                                <ComboBoxItem Content="Follow system" />
+                                <ComboBoxItem Content="Light" />
+                                <ComboBoxItem Content="Dark" />
+                            </ComboBox>
+                            <ToggleSwitch x:Name="TransparencyToggleSwitch" Margin="0,24,0,0" IsOn="True" Toggled="TransparencyToggleSwitch_Toggled" Header="Use transparency effects" OnContent="On" OffContent="Off" />
+                            <TextBlock Margin="0,4,0,0" MaxWidth="560" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Turn this off if transparency or Mica effects feel slow on your computer." TextWrapping="Wrap" />
+                            <Border Margin="0,28,0,0" Padding="16" Background="{ThemeResource SubtleFillColorSecondaryBrush}" CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock FontWeight="SemiBold" Text="Documents" />
+                                    <TextBlock Margin="0,4,0,12" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Text="Read how Local Port Utility handles data and how the project is licensed." TextWrapping="Wrap" />
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <Button Content="Privacy policy" Click="PrivacyPolicyButton_Click" />
+                                        <Button Content="License" Click="LicenseButton_Click" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                            <TextBlock x:Name="SettingsVersionTextBlock" Margin="0,24,0,0" FontSize="12" Foreground="{ThemeResource TextFillColorTertiaryBrush}" TextAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </ScrollViewer>
+            </Grid>
+        </NavigationView>
+    </Grid>
+</Window>

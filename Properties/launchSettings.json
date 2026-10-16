@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Local Port Utility (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Local Port Utility (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
