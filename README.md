@@ -1,8 +1,10 @@
 # Local Port Utility
 
-A Windows desktop app for managing Windows Firewall rules and checking whether network services are reachable. Create inbound rules, test local and public connectivity, and share a TCP service through a Bore tunnel—all from one interface.
+**Local Port Utility** is a user-friendly GUI frontend for Windows PowerShell cmdlets designed to simplify opening local firewall ports and testing port connectivity.
 
-<img width="834" height="782" alt="Screenshot 2026-10-08 165459" src="https://github.com/user-attachments/assets/43d2742b-dfdc-48c4-9584-c2b1e8f26c33" />
+Managing the default Windows Defender Firewall interface can be really annoying, especially when you need to open multiple ports at once, and on top of it, you need to do double the work to open both TCP and UDP.
+
+<img width="834" height="600" alt="Screenshot 2026-10-08 165459" src="https://github.com/user-attachments/assets/43d2742b-dfdc-48c4-9584-c2b1e8f26c33" />
 
 ## Features
 
@@ -29,7 +31,7 @@ The public check sends the selected port and the observed public IP address to C
 
 ## Bore tunnel notes
 
-<img width="841" height="890" alt="Screenshot 2026-10-08 165522" src="https://github.com/user-attachments/assets/d58f8eb7-33d1-4a1a-849b-cfb57ab28a4a" />
+<img width="841" height="600" alt="Screenshot 2026-10-08 165522" src="https://github.com/user-attachments/assets/d58f8eb7-33d1-4a1a-849b-cfb57ab28a4a" />
 
 Bore forwards **TCP only**. The local service must already be running and listening on the address and port you enter. Set remote port to `0` to let the relay assign one; the app displays the endpoint and provides a copy button when it is ready. Closing the app stops the tunnel.
 
