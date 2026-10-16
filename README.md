@@ -2,7 +2,7 @@
 
 A Windows desktop app for managing Windows Firewall rules and checking whether network services are reachable. Create inbound rules, test local and public connectivity, and share a TCP service through a Bore tunnel—all from one interface.
 
-![Local Port Utility screenshot](https://github.com/user-attachments/assets/c487dd7b-7c83-4019-bcb7-e10db5bfc1fa)
+<img width="834" height="782" alt="Screenshot 2026-10-08 165459" src="https://github.com/user-attachments/assets/43d2742b-dfdc-48c4-9584-c2b1e8f26c33" />
 
 ## Features
 
@@ -28,6 +28,8 @@ The app has three different checks because each answers a different question:
 The public check sends the selected port and the observed public IP address to Check-Host. Both ipify and Check-Host can see the network address making the requests. If your connection uses CGNAT, a VPN, or a proxy, the observed public address may be shared or belong to a gateway. A failed public check does not by itself identify whether the cause is Windows Firewall, router forwarding, the ISP, CGNAT, or the service not listening.
 
 ## Bore tunnel notes
+
+<img width="841" height="890" alt="Screenshot 2026-10-08 165522" src="https://github.com/user-attachments/assets/d58f8eb7-33d1-4a1a-849b-cfb57ab28a4a" />
 
 Bore forwards **TCP only**. The local service must already be running and listening on the address and port you enter. Set remote port to `0` to let the relay assign one; the app displays the endpoint and provides a copy button when it is ready. Closing the app stops the tunnel.
 
