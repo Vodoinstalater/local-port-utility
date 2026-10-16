@@ -25,12 +25,10 @@ Managing the default Windows Defender Firewall interface can be really annoying,
 
 The app has three different checks because each answers a different question:
 
-- **Test service** makes a TCP connection from this computer to the IPv4 address and port you entered. A successful result means a TCP service responded to the connection attempt from this network location.
-- **Inspect port** looks for enabled inbound Windows Firewall allow rules for that exact port. A matching firewall rule does not mean an application is listening, and a listening application does not guarantee that the firewall or router permits outside connections.
-- **Scan public port** asks Check-Host to probe the public IPv4 address reported by ipify. A successful TCP probe means an external probe connected. UDP has no TCP-style connection handshake, so no reply is inconclusive: the app may report **OPEN OR FILTERED**. A UDP application-specific response or an ICMP “port unreachable” response gives more information.
-
-The public check sends the selected port and the observed public IP address to Check-Host. Both ipify and Check-Host can see the network address making the requests. If your connection uses CGNAT, a VPN, or a proxy, the observed public address may be shared or belong to a gateway. A failed public check does not by itself identify whether the cause is Windows Firewall, router forwarding, the ISP, CGNAT, or the service not listening.
-
+- Test service tries to connect to the address and port you enter.
+- Inspect port checks if Windows Firewall allows traffic on that port.
+- Scan public port checks if a service can be reached from outside your network. TCP gives a clear result. UDP can be harder to confirm and may show OPEN OR FILTERED.
+The public check uses ipify to find your public IP, then Check-Host to test the port. If you use CGNAT, a VPN, or a proxy, that IP may be shared. A failed check can have several causes, such as your firewall, router, ISP, or the service not running.
 ## Bore tunnel notes
 
 <img width="841" height="890" alt="Screenshot 2026-10-08 165522" src="https://github.com/user-attachments/assets/d51b2891-f1e1-490d-832a-84eaa5988412" />
